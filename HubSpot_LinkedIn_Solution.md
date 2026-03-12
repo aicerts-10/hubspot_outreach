@@ -1,20 +1,25 @@
 # HubSpot + LinkedIn Outreach Agent — Solution Document
 
 ---
+### What's Being Asked
+
+> With Team Sales Navigator integrated into HubSpot, can each sales rep pick LinkedIn contacts they want to reach out to, have an AI agent (like the existing Lead Gen Agent) automatically create personalized outreach — draft emails and LinkedIn connection notes — and then let the rep review and approve before sending?
+
+**This implicitly also asks for two things that are not possible:**
+- **Auto-pull leads from Sales Navigator into the agent** — Sales Navigator has no API; contacts must enter HubSpot via native sync, CSV export, or manual entry.
+- **One-click send for LinkedIn connection requests** — LinkedIn has no API for sending personal messages from a CRM; the rep must copy-paste the note manually (~10 sec).
+
 
 ## TL;DR — Solution Summary
 
-**Yes, we can build this.** We build a custom Agent API that plugs into HubSpot via webhooks. When a rep's LinkedIn contacts land in HubSpot — via Sales Nav native sync (auto), CSV export from Sales Nav, or manual URL entry — our agent automatically enriches the profile (via Apify scraper), generates personalized outreach (LinkedIn connection note + email) using AI, and writes the drafts back to the HubSpot contact record. The rep reviews, edits if needed, and sends — emails go directly from HubSpot (fully automated); LinkedIn connection notes are copied and pasted manually by the rep (~10 sec) since LinkedIn provides no official API for sending personal messages from a CRM. Each rep gets customized outreach based on their tone, service focus, and signature stored in HubSpot.
+We build a custom Agent API that plugs into HubSpot via webhooks. When a rep's LinkedIn contacts land in HubSpot — via Sales Nav native sync (auto), CSV export from Sales Nav, or manual URL entry — our agent automatically enriches the profile (via Apify scraper), generates personalized outreach (LinkedIn connection note + email) using AI, and writes the drafts back to the HubSpot contact record. The rep reviews, edits if needed, and sends — emails go directly from HubSpot (fully automated); LinkedIn connection notes are copied and pasted manually by the rep (~10 sec) since LinkedIn provides no official API for sending personal messages from a CRM. Each rep gets customized outreach based on their tone, service focus, and signature stored in HubSpot.
 
 **Two hard limitations:** (1) No Sales Navigator API exists — contacts enter HubSpot via the native Sales Nav sync (auto, but limited), CSV export from Sales Nav, or manual URL entry. (2) No LinkedIn messaging API for personal accounts — LinkedIn connection notes require a quick manual copy-paste send by the rep.
 
 ---
 
-## 1. Requirement & Solution
+## 1. Solution
 
-### What's Being Asked
-
-> Can we build a per-rep agent within HubSpot that: takes LinkedIn contacts each rep wants to reach out to → enriches them → generates personalized outreach (connection notes + emails) → lets the rep review and send (HITL)?
 
 ### Our Solution
 
